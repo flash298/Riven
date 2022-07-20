@@ -1,0 +1,41 @@
+<div class="fjdgoierdgfrgfhrgdf">
+    <div class="mb-3">
+        <label for="account" class="form-label">tên đăng nhập</label>
+        <input
+        type="text"
+        class="form-control"
+        id="account"
+        name="account"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">mật khẩu</label>
+        <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        />
+    </div>
+    <button onclick="myFunction()" class="btn btn-primary addfgfsgsfgdg" id="signup">Đăng nhập</button>
+    <script>
+    async function myFunction() {
+        const res= await axios({
+        url: "http://localhost:3001/api/v1/login",
+        method: "post",
+        data: {
+            account: $("#account").val(),
+            password: $("#password").val()
+            }
+        })
+        const result= await res.data
+        if(result?.length > 0) {
+            document.cookie = `uid=${result[0].id_user}; expires=Thu, 18 Dec 2022 12:00:00 UTC`;
+            window.location.href= ("http://localhost:3001/#")
+        }
+        else {
+            alert("Tài khoản hoặc mật khẩu không chính xác")
+        }
+    }
+    </script>
+</div>

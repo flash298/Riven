@@ -1,0 +1,73 @@
+<div>
+
+  <div class="mb-3">
+    <label for="name" class="form-label">họ và tên</label>
+    <input type="text" class="form-control" id="name" name="name" />
+  </div>
+
+  <div class="mb-3">
+    <label for="product_id" class="form-label">số điện thoại</label>
+    <input
+      type="number"
+      class="form-control"
+      id="phone_number"
+      name="phone_number"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">email</label>
+    <input type="email" class="form-control" id="email" name="email" />
+  </div>
+
+  <div class="mb-3">
+    <label for="address" class="form-label">địa chỉ</label>
+    <input type="text" class="form-control" id="address" name="address" />
+  </div>
+
+  {{! <div class="mb-3">
+    <label for="image" class="form-label">link avatar</label>
+    <input type="text" class="form-control" id="image" name="avatar">
+  </div> }}
+
+  <div class="mb-3">
+    <label for="account" class="form-label">tên đăng nhập</label>
+    <input
+      type="text"
+      class="form-control"
+      id="account"
+      name="account"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">mật khẩu</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      name="password"
+    />
+  </div>
+
+  <button onclick="myFunction()" class="btn btn-primary addfgfsgsfgdg" id="signup">Đăng ký</button>
+  <script>
+  async function myFunction() {
+    const res= await axios({
+      url: "http://localhost:3001/api/v1/signup",
+      method: "post",
+      data: {
+        name: document.querySelector("#name").value || "",
+        phone_number: 0123456789,
+        email: $("#email").val(),
+        address: $("#address").val(),
+        account: $("#account").val(),
+        password: $("#password").val()
+        }
+    })
+    const result= await res.data
+    window.location.href= "http://localhost:3001/login"
+  }
+</script>
+</div>
+
+
