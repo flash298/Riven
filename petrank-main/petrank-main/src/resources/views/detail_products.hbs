@@ -1,0 +1,46 @@
+<style>
+    .fdkokopwakwopewe {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+
+    }
+    html {
+        height: 100vh !important;
+    }
+</style>
+<script>
+    const getDetailProduct= async ()=> {
+        const res= await axios({
+        url: "http://localhost:3001/api/v1/detail/product",
+        method: "get",
+        params: {
+            id_product: window.location.pathname.split("/")[2].toString()
+        }
+        }) 
+        const result= await res.data
+        document.querySelector(".fdkokopwakwopewe").innerHTML= `
+        <div class="djfjiorjawrieqwwwarer">
+            <img class="dfrjfgsjrwegjrwgfkw" src=${result.photo} alt="">
+            </div>
+            <div>
+                <div style="font-size: 24px; font-weight: 600">
+                    ${result.title}
+                </div>
+                <div>
+                    Giá tiền: ${result.cost}đ
+                </div>
+                <br>
+                <div style="padding: 12px 24px; background-color: orange; border-radius: 10px; cursor: pointer">
+                    Thêm vào giỏ hàng
+                </div>
+            </div>
+        `
+    }
+    getDetailProduct()
+</script>
+<div class="fdkokopwakwopewe">
+    
+</div>

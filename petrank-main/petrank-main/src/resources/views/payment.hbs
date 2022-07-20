@@ -1,0 +1,82 @@
+<div>
+  
+  <h3>Welcome to Payment Gateway</h3>
+  <style>
+    .fdkokopwakwopewe {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+    }
+    html {
+        height: 100vh !important;
+    }
+</style>
+<script>
+    const getDetailProduct= async ()=> {
+        const res= await axios({
+        url: "http://localhost:3001/api/v1/detail/product",
+        method: "get",
+        params: {
+            id_product: window.location.pathname.split("/")[2].toString()
+        }
+        }) 
+        const result= await res.data
+        document.querySelector(".fdkokopwakwopewe").innerHTML= `
+        <div class="djfjiorjawrieqwwwarer">
+            <img class="dfrjfgsjrwegjrwgfkw" src=${result.photo} alt="">
+            </div>
+            <div>
+                <div style="font-size: 24px; font-weight: 600">
+                    ${result.title}
+                </div>
+                <div>
+                    Giá tiền: ${result.cost}đ
+                </div>
+            </div>
+        `
+        document.querySelector(".gkdpkdksdsdgf").setAttribute("data-amount", result.cost)
+        document.querySelector(".gkdpkdksdsdgf").setAttribute("data-currency", "vnd")
+        document.querySelector(".gkdpkdksdsdgf").setAttribute("data-name", result.title)
+        document.querySelector(".gkdpkdksdsdgf").setAttribute("data-description", result.title)
+        document.querySelector(".ksdksteifjdkda").setAttribute("action", window.location.pathname.split("/")[2].toString()+"/"+Cookies.get("uid"))
+    }
+    getDetailProduct()
+</script>
+<div class="fdkokopwakwopewe">
+<br>
+<br>
+</div>
+<div style="margin-top: 20px;width: max-content" class="submitButton" >
+  <form class="ksdksteifjdkda" action="payment" method="POST">
+    <script
+      src="//checkout.stripe.com/v2/checkout.js"
+      class="stripe-button gkdpkdksdsdgf"
+      data-key="pk_test_51KuWAjDq3U6SJ691wGf9YHe0wZC0O51ddczJ4oSBnGTwYgx9VZW4s1GIie1jWY4TiLHoEzuPzdQqtalMuA9twxoS00wCLbL1O7"
+      data-amount="2500"
+      data-currency="inr"
+      data-name="Crafty Gourav"
+      data-description="Handmade Art and Craft Products"
+      data-locale="auto">
+      <button >Hello world</button>
+    </script>
+  </form>
+  <script>
+    $(".submitButton").on("click", async ()=> {
+      const res= await axios({
+        url: "http://localhost:3001/api/v1/detail/product",
+        method: "get",
+        params: {
+            id_product: window.location.pathname.split("/")[2].toString()
+        }
+        }) 
+        const result= await res.data
+        document.querySelector(".gkdpkdksdsdgf").setAttribute("data-amount", result.cost)
+        document.querySelector(".gkdpkdksdsdgf").setAttribute("data-currency", "vnd")
+        document.querySelector(".gkdpkdksdsdgf").setAttribute("data-name", result.title)
+        document.querySelector(".gkdpkdksdsdgf").setAttribute("data-description", result.title)
+    })
+  </script>
+</div>
+</div>
