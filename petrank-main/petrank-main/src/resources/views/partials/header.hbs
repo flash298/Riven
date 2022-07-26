@@ -19,15 +19,19 @@
             </li>
             <li><a class="menu-option" href="./IntroduceAndPolicy.html">Giới thiệu</a></li>
             <li><a class="menu-option" href="./News.html">Tin tức</a></li>
-        </ul> <!--END MENU-->  
-
+        </ul> <!--END M ENU-->  
+        <script>
+            function toSearch() {
+                window.location.href= `http://localhost:3001/search?query_search=${document.querySelector("#search-box").value}`
+            }
+        </script>
         <!--SEARCH-->
-        <form id="search" method="POST" action="/search">
+        <div id="search">
             <input type="search" name="q" id="search-box" placeholder="Tìm kiếm..." />
-            <button type="submit" style="background-color: #2e2e2e; border: none">
+            <button onclick="toSearch()" id="djslkjdalksas" type="submit" style="background-color: #2e2e2e; border: none">
                 <i class="ti-search search-icon"></i>
             </button>
-        </form> <!--END SEARCH-->
+        </div> <!--END SEARCH-->
 
         <!--USER ACCOUNT-->
         <script>
@@ -43,9 +47,20 @@
                 const result= await res.data
                 if(result?.length > 0) {
                     document.querySelector(".fodkfdfseda").innerHTML= result[0].name
+                    document.querySelector(".jdipdjipsdjasad").innerHTML= "Logout"
+                }
+                else {
+                    document.querySelector(".jdipdjipsdjasad").innerHTML= ""
                 }
             }
             getProfileUser()
+            const toProfile= ()=> {
+                window.location.href= `http://localhost:3001/profile/${Cookies.get("uid")}`
+            }
+            const logOut= ()=> {
+                Cookies.remove("uid", {  path: ""})
+                window.location.reload()
+            }
         </script>
         <style>
             #user-account {
@@ -60,8 +75,8 @@
             <div>
                 <a class="menu-option" href="#"><i class="icon ti-close"></i></a>
             </div>  
-            <div style="margin-left: 100px;" class="fodkfdfseda"></div>
-                        
+            <div onclick="toProfile()" style="margin-left: 100px;" class="fodkfdfseda"></div>
+            <div style="margin-left: 16px;"><button class="jdipdjipsdjasad" onclick="logOut()"></button></div>
         </div> <!--END USER ACCOUNT-->
                 
     </div> <!--END NAV-BAR -->

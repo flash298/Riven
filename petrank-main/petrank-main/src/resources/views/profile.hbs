@@ -1,0 +1,60 @@
+<div class="sjdjkalsjasklas">
+    <script>
+        const getProfile= async ()=> {
+            const res= await axios({
+                url: "http://localhost:3001/api/v1/user/profile",
+                method: "post",
+                responseType: "json",
+                data: {
+                    id_user: window.location.pathname.split("/")[2]
+                }
+            })
+            const result= await res.data
+            console.log(result)
+            document.querySelector(".jdsiodjsoiaassa").innerHTML= `
+                <div>
+                    <div>Account</div>
+                    <div id="c-account" contenteditable="true" value=${result[0].account} placeholder=${result[0].account}>${result[0].account}</div>
+                </div>
+                <br />
+                <div>
+                    <div>Address</div>
+                    <div id="c-address" contenteditable="true" value=${result[0].address} placeholder=${result[0].address}>${result[0].address}</div>
+                </div>
+                <br />
+                <div>
+                    <div>Email</div>
+                    <div id="c-email" contenteditable="true" value=${result[0].email} placeholder=${result[0].email}>${result[0].email}</div>
+                </div>
+                <br />
+                <div>
+                    <div>Name</div>
+                    <div id="c-name" contenteditable="true" value=${result[0].name} placeholder=${result[0].name}>${result[0].name}</div>
+                </div>
+                <br />
+                    <div>Phone number</div>
+                    <div id="c-phone_number" contenteditable="true" value=${result[0].phone_number} placeholder=${result[0].phone_number}>${result[0].phone_number}</div>
+                <br />
+            `
+        }
+        getProfile()
+        async function changeUserProfile() {
+            const res= await axios({
+                url: "http://localhost:3001/api/v1/change/user/profile", 
+                method: "post", 
+                data: {
+                    id_user: window.location.pathname.split("/")[2],
+                    name: document.querySelector("#c-name").innerHTML,
+                    phone_number: document.querySelector("#c-phone_number").innerHTML,
+                    email: document.querySelector("#c-email").innerHTML,
+                    address: document.querySelector("#c-address").innerHTML,
+                    account: document.querySelector("#c-account").innerHTML
+                }
+            })
+            const result= await res.data
+            return window.location.reload()
+        }
+    </script>
+    <div class="jdsiodjsoiaassa"></div>
+    <button onclick="changeUserProfile()">Edit profile</button>
+</div> 

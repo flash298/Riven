@@ -1,20 +1,49 @@
-{{#each products}}
-  <form class="col-sm-6 col-lg-3 mt-4" method="POST" action="/user/cart">
-    <div class="card">
-      <img
-        src="{{this.image}}"
-        class="card-img-top"
-        alt="{{this.name}}"
-        style="height:250px"
-      />
-      <div class="card-body" style="color: #2e2e2e; height: 200px">
-        <h5 class="card-title">{{this.name}}</h5>
-        <p class="card-text">{{this.description}}</p>
-        <p class="card-text">{{this.price}}</p>
+<div>
+    <script>
+        async function resultSearch() {
+            const res= await axios({
+                url: "http://localhost:3001/api/v1/get/search",
+                method: "get", 
+                params: {
+                    query_search: Object.fromEntries(new URLSearchParams(window.location.search).entries()).query_search
+                },
+                responseType: "json",
+            })
+            const result= await res.data
+            if(result.length> 0) {
 
-        <button type="submit" class="btn btn-primary">Thêm giỏ</button>
-        <a href="/products/{{this.product_id}}" class="btn btn-primary">Chi tiết</a>
-      </div>
-    </div>
-  </form>
-{{/each}}
+                document.querySelector("#available-products").innerHTML= `
+                    <div id="content3" class="title">
+                        Sản phẩm
+                    </div>
+                    <br />
+                    <div class="fkwkfdgrkeesd">
+                        ${result?.map((item, key)=> `
+                        <div data-id="${item.id_product}" class="fegerhfretgfg" id="${item.id_product}">
+                        
+                            <a href="/product/${item.id_product}">
+                                <div class="feterqergrdg" id="bldsssdsog${parseInt(key) + 1}-image" style="background-image: url(${item.photo})"></div>
+                            </a>
+                            <div class="d8tguooeoiodsiods">
+                                ${item.title}
+                            </div>
+                            <div class="guierjoiajrawoe">
+                                ${item.cost}đ
+                            </div>
+                            <div class="jiertjgioerporeaew">
+                                <div class="kdsksasSdl" onclick="cart('${item.id_product}')">Mua</div>
+                            </div>
+                            
+                        </div>
+                        `)}
+                    </div>
+                    `
+                }
+                else {
+                    document.querySelector("#available-products").innerHTML= "Không tìm thấy sản phẩm yêu cầu"
+                }
+            }
+        resultSearch()
+    </script>
+    <div id="available-products"></div>
+</div>
